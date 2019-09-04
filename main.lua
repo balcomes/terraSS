@@ -324,7 +324,7 @@ function love.load()
     Grass = {}
     Grass.__index = Grass
     function Grass:Create(xo,yo)
-
+        --[[
         -- Grass Seasons
         ahead_id = math.floor((tick + season_days/2)/season_days) % 4 + 1
         behind_id = math.floor((tick - season_days/2)/season_days) % 4 + 1
@@ -376,14 +376,15 @@ function love.load()
                 vc3 = math.random(0, 150)/255
             end
         end
+        ]]--
 
         local this =
         {
             x = xo,
             y = yo,
-            c1 = vc1,
-            c2 = vc2,
-            c3 = vc3,
+            c1 = math.random(75,100)/255,
+            c2 = math.random(150, 200)/255,
+            c3 = 0,
         }
         setmetatable(this, Grass)
         board.grid[yo][xo] = "grass"
@@ -445,6 +446,7 @@ function love.load()
     function Tree:Create(xo,yo)
 
         -- Tree Seasons
+        --[[
         ahead_id = math.floor((tick + season_days/2)/season_days) % 4 + 1
         behind_id = math.floor((tick - season_days/2)/season_days) % 4 + 1
         ahead_fraction = tick/season_days
@@ -453,22 +455,22 @@ function love.load()
         local vc3 = 0
 
         if math.random() < ahead_fraction then
-            if behind_id == 1 then
+            if ahead_id == 1 then
                 vc1 = math.random(0, 50)/255
                 vc2 = math.random(50,100)/255
                 vc3 = 0
             end
-            if behind_id == 2 then
+            if ahead_id == 2 then
                 vc1 = math.random(150, 200)/255
                 vc2 = math.random(0, 200)/255
                 vc3 = 0
             end
-            if behind_id == 3 then
+            if ahead_id == 3 then
                 vc1 = math.random(50, 150)/255
                 vc2 = math.random(25, 75)/255
                 vc3 = 0
             end
-            if behind_id == 4 then
+            if ahead_id == 4 then
                 vc1 = math.random(200, 250)/255
                 vc2 = math.random(0, 150)/255
                 vc3 = math.random(100, 250)/255
@@ -495,14 +497,15 @@ function love.load()
                 vc3 = math.random(100, 250)/255
             end
         end
+        ]]--
 
         local this =
         {
             x = xo,
             y = yo,
-            c1 = vc1,
-            c2 = vc2,
-            c3 = vc3,
+            c1 = math.random(0, 50)/255,
+            c2 = math.random(50,100)/255,
+            c3 = 0,
         }
         setmetatable(this, Tree)
         board.grid[yo][xo] = "tree"
