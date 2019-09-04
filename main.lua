@@ -738,11 +738,11 @@ function love.update(dt)
 
 
 
-    -- print(math.floor((4000 + 5000)/10000) % 4 + 1)
-    -- print(math.floor((4000 - 5000)/10000) % 4 + 1)
+    -- print(math.floor((4000 + 5000)/season_days) % 4 + 1)
+    -- print(math.floor((4000 - 5000)/season_days) % 4 + 1)
 
-    -- print(4000/10000)
-    -- print(1-4000/10000)
+    -- print(4000/season_days)
+    -- print(1-4000/season_days)
     ahead_id = math.floor((tick + season_days/2)/season_days) % 4 + 1
     behind_id = math.floor((tick - season_days/2)/season_days) % 4 + 1
     ahead_fraction = tick/season_days
@@ -751,90 +751,90 @@ function love.update(dt)
     -- Grass Seasons
     for k,v in pairs(grass_table) do
         if ahead_id == 1 then
-            v.c1 = (v.c1 + ahead_fraction*(75+100)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c2 = (v.c2 + ahead_fraction*(150+200)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c3 = (v.c1 + ahead_fraction*0)/(1+ahead_fraction*1/10000)
+            v.c1 = (v.c1 + ahead_fraction*(75+100)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c2 = (v.c2 + ahead_fraction*(150+200)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c3 = (v.c1 + ahead_fraction*0)/(1+ahead_fraction*1/season_days)
         end
         if ahead_id == 2 then
-            v.c1 = (v.c1 + ahead_fraction*(50 + 150)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c2 = (v.c2 + ahead_fraction*(100 + 150)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/10000)
+            v.c1 = (v.c1 + ahead_fraction*(50 + 150)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c2 = (v.c2 + ahead_fraction*(100 + 150)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/season_days)
         end
         if ahead_id == 3 then
-            v.c1 = (v.c1 + ahead_fraction*1)/(1+ahead_fraction*1/10000)
-            v.c2 = (v.c2 + ahead_fraction*1)/(1+ahead_fraction*1/10000)
-            v.c3 = (v.c3 + ahead_fraction*1)/(1+ahead_fraction*1/10000)
+            v.c1 = (v.c1 + ahead_fraction*1)/(1+ahead_fraction*1/season_days)
+            v.c2 = (v.c2 + ahead_fraction*1)/(1+ahead_fraction*1/season_days)
+            v.c3 = (v.c3 + ahead_fraction*1)/(1+ahead_fraction*1/season_days)
         end
         if ahead_id == 4 then
-            v.c1 = (v.c1 + ahead_fraction*(125 + 200)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c2 = (v.c2 + ahead_fraction*1)/(1+ahead_fraction*1/10000)
-            v.c3 = (v.c3 + ahead_fraction*(0 + 150)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c1 = (v.c1 + ahead_fraction*(125 + 200)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c2 = (v.c2 + ahead_fraction*1)/(1+ahead_fraction*1/season_days)
+            v.c3 = (v.c3 + ahead_fraction*(0 + 150)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
         end
 
         if behind_id == 1 then
-            v.c1 = (v.c1 + behind_fraction*(75 + 100)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c2 = (v.c2 + behind_fraction*(150 + 200)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/10000)
+            v.c1 = (v.c1 + behind_fraction*(75 + 100)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c2 = (v.c2 + behind_fraction*(150 + 200)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/season_days)
         end
         if behind_id == 2 then
-            v.c1 = (v.c1 + behind_fraction*(50 + 150)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c2 = (v.c2 + behind_fraction*(100 + 150)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/10000)
+            v.c1 = (v.c1 + behind_fraction*(50 + 150)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c2 = (v.c2 + behind_fraction*(100 + 150)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/season_days)
         end
         if behind_id == 3 then
-            v.c1 = (v.c1 + behind_fraction*1)/(1+behind_fraction*1/10000)
-            v.c2 = (v.c2 + behind_fraction*1)/(1+behind_fraction*1/10000)
-            v.c3 = (v.c3 + behind_fraction*1)/(1+behind_fraction*1/10000)
+            v.c1 = (v.c1 + behind_fraction*1)/(1+behind_fraction*1/season_days)
+            v.c2 = (v.c2 + behind_fraction*1)/(1+behind_fraction*1/season_days)
+            v.c3 = (v.c3 + behind_fraction*1)/(1+behind_fraction*1/season_days)
         end
         if behind_id == 4 then
-            v.c1 = (v.c1 + behind_fraction*(125 + 200)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c2 = (v.c2 + behind_fraction*1)/(1+behind_fraction*1/10000)
-            v.c3 = (v.c3 + behind_fraction*(0 + 150)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c1 = (v.c1 + behind_fraction*(125 + 200)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c2 = (v.c2 + behind_fraction*1)/(1+behind_fraction*1/season_days)
+            v.c3 = (v.c3 + behind_fraction*(0 + 150)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
         end
     end
 
     -- Tree Seasons
     for k,v in pairs(tree_table) do
         if ahead_id == 1 then
-            v.c1 = (v.c1 + ahead_fraction*(0 + 50)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c2 = (v.c2 + ahead_fraction*(50 + 100)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/10000)
+            v.c1 = (v.c1 + ahead_fraction*(0 + 50)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c2 = (v.c2 + ahead_fraction*(50 + 100)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/season_days)
         end
         if ahead_id == 2 then
-            v.c1 = (v.c1 + ahead_fraction*(150 + 200)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c2 = (v.c2 + ahead_fraction*(0 + 200)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/10000)
+            v.c1 = (v.c1 + ahead_fraction*(150 + 200)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c2 = (v.c2 + ahead_fraction*(0 + 200)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/season_days)
         end
         if ahead_id == 3 then
-            v.c1 = (v.c1 + ahead_fraction*(50 + 150)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c2 = (v.c2 + ahead_fraction*(25 + 75)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/10000)
+            v.c1 = (v.c1 + ahead_fraction*(50 + 150)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c2 = (v.c2 + ahead_fraction*(25 + 75)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/season_days)
         end
         if ahead_id == 4 then
-            v.c1 = (v.c1 + ahead_fraction*(200 + 250)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c2 = (v.c2 + ahead_fraction*(0 + 150)/(2*255)/10000)/(1+ahead_fraction*1/10000)
-            v.c3 = (v.c3 + ahead_fraction*(100 + 250)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c1 = (v.c1 + ahead_fraction*(200 + 250)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c2 = (v.c2 + ahead_fraction*(0 + 150)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
+            v.c3 = (v.c3 + ahead_fraction*(100 + 250)/(2*255)/season_days)/(1+ahead_fraction*1/season_days)
         end
 
         if behind_id == 1 then
-            v.c1 = (v.c1 + behind_fraction*(0 + 50)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c2 = (v.c2 + behind_fraction*(50 + 100)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/10000)
+            v.c1 = (v.c1 + behind_fraction*(0 + 50)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c2 = (v.c2 + behind_fraction*(50 + 100)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/season_days)
         end
         if behind_id == 2 then
-            v.c1 = (v.c1 + behind_fraction*(150 + 200)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c2 = (v.c2 + behind_fraction*(0 + 200)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/10000)
+            v.c1 = (v.c1 + behind_fraction*(150 + 200)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c2 = (v.c2 + behind_fraction*(0 + 200)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/season_days)
         end
         if behind_id == 3 then
-            v.c1 = (v.c1 + behind_fraction*(50 + 150)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c2 = (v.c2 + behind_fraction*(25 + 75)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/10000)
+            v.c1 = (v.c1 + behind_fraction*(50 + 150)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c2 = (v.c2 + behind_fraction*(25 + 75)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/season_days)
         end
         if behind_id == 4 then
-            v.c1 = (v.c1 + behind_fraction*(200 + 250)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c2 = (v.c2 + behind_fraction*(0 + 150)/(2*255)/10000)/(1+behind_fraction*1/10000)
-            v.c3 = (v.c3 + behind_fraction*(100 + 250)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c1 = (v.c1 + behind_fraction*(200 + 250)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c2 = (v.c2 + behind_fraction*(0 + 150)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
+            v.c3 = (v.c3 + behind_fraction*(100 + 250)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
         end
     end
 
