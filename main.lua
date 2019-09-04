@@ -11,6 +11,8 @@ function love.load()
     tree_table = {}
     reverse_seasons = false
     adjust = 0
+    tick = 1
+    season_days = 1000
 
     water_stone_rate = 20
 
@@ -322,13 +324,66 @@ function love.load()
     Grass = {}
     Grass.__index = Grass
     function Grass:Create(xo,yo)
+
+        -- Grass Seasons
+        ahead_id = math.floor((tick + season_days/2)/season_days) % 4 + 1
+        behind_id = math.floor((tick - season_days/2)/season_days) % 4 + 1
+        ahead_fraction = tick/season_days
+        local vc1 = 0
+        local vc2 = 0
+        local vc3 = 0
+
+        if math.random() < ahead_fraction then
+            if ahead_id == 1 then
+                vc1 = math.random(75,100)/255
+                vc2 = math.random(150, 200)/255
+                vc3 = 0
+            end
+            if ahead_id == 2 then
+                vc1 = math.random(50, 150)/255
+                vc2 = math.random(100, 150)/255
+                vc3 = 0
+            end
+            if ahead_id == 3 then
+                vc1 = 1
+                vc2 = 1
+                vc3 = 1
+            end
+            if ahead_id == 4 then
+                vc1 = math.random(125, 200)/255
+                vc2 = 250/255
+                vc3 = math.random(0, 150)/255
+            end
+        else
+            if behind_id == 1 then
+                vc1 = math.random(75,100)/255
+                vc2 = math.random(150, 200)/255
+                vc3 = 0
+            end
+            if behind_id == 2 then
+                vc1 = math.random(50, 150)/255
+                vc2 = math.random(100, 150)/255
+                vc3 = 0
+            end
+            if behind_id == 3 then
+                vc1 = 1
+                vc2 = 1
+                vc3 = 1
+            end
+            if behind_id == 4 then
+                vc1 = math.random(125, 200)/255
+                vc2 = 250/255
+                vc3 = math.random(0, 150)/255
+            end
+        end
+
         local this =
         {
             x = xo,
             y = yo,
-            c1 = 80/255 + adjust,
-            c2 = 150/255 + adjust,
-            c3 = 60/255 + adjust,
+            c1 = vc1,
+            c2 = vc2,
+            c3 = vc3,
         }
         setmetatable(this, Grass)
         board.grid[yo][xo] = "grass"
@@ -388,14 +443,66 @@ function love.load()
     Tree = {}
     Tree.__index = Tree
     function Tree:Create(xo,yo)
+
+        -- Tree Seasons
+        ahead_id = math.floor((tick + season_days/2)/season_days) % 4 + 1
+        behind_id = math.floor((tick - season_days/2)/season_days) % 4 + 1
+        ahead_fraction = tick/season_days
+        local vc1 = 0
+        local vc2 = 0
+        local vc3 = 0
+
+        if math.random() < ahead_fraction then
+            if behind_id == 1 then
+                vc1 = math.random(0, 50)/255
+                vc2 = math.random(50,100)/255
+                vc3 = 0
+            end
+            if behind_id == 2 then
+                vc1 = math.random(150, 200)/255
+                vc2 = math.random(0, 200)/255
+                vc3 = 0
+            end
+            if behind_id == 3 then
+                vc1 = math.random(50, 150)/255
+                vc2 = math.random(25, 75)/255
+                vc3 = 0
+            end
+            if behind_id == 4 then
+                vc1 = math.random(200, 250)/255
+                vc2 = math.random(0, 150)/255
+                vc3 = math.random(100, 250)/255
+            end
+        else
+            if behind_id == 1 then
+                vc1 = math.random(0, 50)/255
+                vc2 = math.random(50,100)/255
+                vc3 = 0
+            end
+            if behind_id == 2 then
+                vc1 = math.random(150, 200)/255
+                vc2 = math.random(0, 200)/255
+                vc3 = 0
+            end
+            if behind_id == 3 then
+                vc1 = math.random(50, 150)/255
+                vc2 = math.random(25, 75)/255
+                vc3 = 0
+            end
+            if behind_id == 4 then
+                vc1 = math.random(200, 250)/255
+                vc2 = math.random(0, 150)/255
+                vc3 = math.random(100, 250)/255
+            end
+        end
+
         local this =
         {
             x = xo,
             y = yo,
-            c1 = (20 + math.random(50))/255 + adjust,
-            c2 = (80 + math.random(50))/255 + adjust,
-            c3 = (20 + math.random(10))/255 + adjust,
-            hp = 10,
+            c1 = vc1,
+            c2 = vc2,
+            c3 = vc3,
         }
         setmetatable(this, Tree)
         board.grid[yo][xo] = "tree"
@@ -538,6 +645,11 @@ end
 
 function love.update(dt)
 
+    tick = tick + 1
+    if tick > 4*season_days then
+        tick = 1
+    end
+
     for k,v in pairs(water_table) do
         if v:Water_to_Stone() then
             table.remove(water_table, k)
@@ -595,43 +707,136 @@ function love.update(dt)
         end
     end
 
-    -- Seasons Change
-    if reverse_seasons == false then
-        adjust = 1/255
-    else
-        adjust = -1/255
-    end
+    -- 75-100, 150-200, 0
+    -- 0-50, 50-100, 0
+
+    -- 50-150, 100-150, 0
+    -- 150-200, 0-200, 0
+
+    -- 250, 250, 250
+    -- 50-150, 25-75, 0
+
+    -- 125-200, 255, 0-150
+    -- 200-250, 0-150, 100-250
+
+    --10,000 per season 40,000
+
+    -- math.random(75,100) math.random(150, 200) 0
+    -- math.random(0, 50) math.random(50,100) 0
+
+    -- math.random(50, 150) math.random(100, 150) 0
+    -- math.random(150, 200) math.random(0, 200) 0
+
+    -- 250 250 250
+    -- math.random(50, 150) math.random(25, 75) 0
+
+    -- math.random(125, 200) 250 math.random(0, 150)
+    -- math.random(200, 250) math.random(0, 150) math.random(100, 250)
+
+
+
+    -- print(math.floor((4000 + 5000)/10000) % 4 + 1)
+    -- print(math.floor((4000 - 5000)/10000) % 4 + 1)
+
+    -- print(4000/10000)
+    -- print(1-4000/10000)
+
+    --[[
+    ahead_id = math.floor((tick + season_days/2)/season_days) % 4 + 1
+    behind_id = math.floor((tick - season_days/2)/season_days) % 4 + 1
+    ahead_fraction = tick/season_days
+    behind_fraction = 1 - ahead_fraction
 
     -- Grass Seasons
     for k,v in pairs(grass_table) do
-        if math.random() < 0.1 then
-            v.c1 = v.c1 + adjust
-            v.c2 = v.c2 + adjust
-            v.c3 = v.c3 + adjust
+        if ahead_id == 1 then
+            v.c1 = (v.c1 + (75+100)/(2*255))/2
+            v.c2 = (v.c2 + (150+200)/(2*255))/2
+            v.c3 = 0
         end
-        if (v.c1 + v.c2 + v.c3)/3 > 0.98 then
-            reverse_seasons = true
+        if ahead_id == 2 then
+            v.c1 = (v.c1 + (50 + 150)/(2*255))/2
+            v.c2 = (v.c2 + (100 + 150)/(2*255))/2
+            v.c3 = 0
         end
-        if (v.c1 + v.c2 + v.c3)/3 < 0.02 then
-            reverse_seasons = false
+        if ahead_id == 3 then
+            v.c1 = 1
+            v.c2 = 1
+            v.c3 = 1
+        end
+        if ahead_id == 4 then
+            v.c1 = (v.c1 + (125 + 200)/(2*255))/2
+            v.c2 = 1
+            v.c3 = (v.c3 + (0 + 150)/(2*255))/2
+        end
+
+        if behind_id == 1 then
+            v.c1 = (v.c1 + (75 + 100)/(2*255))/2
+            v.c2 = (v.c2 + (150 + 200)/(2*255))/2
+            v.c3 = 0
+        end
+        if behind_id == 2 then
+            v.c1 = (v.c1 + (50 + 150)/(2*255))/2
+            v.c2 = (v.c2 + (100 + 150)/(2*255))/2
+            v.c3 = 0
+        end
+        if behind_id == 3 then
+            v.c1 = 1
+            v.c2 = 1
+            v.c3 = 1
+        end
+        if behind_id == 4 then
+            v.c1 = (v.c1 + (125 + 200)/(2*255))/2
+            v.c2 = 1
+            v.c3 = (v.c3 + (0 + 150)/(2*255))/2
         end
     end
 
     -- Tree Seasons
     for k,v in pairs(tree_table) do
-        if math.random() < 0.1 then
-            v.c1 = v.c1 + adjust
-            v.c2 = v.c2 + adjust
-            v.c3 = v.c3 + adjust
+        if ahead_id == 1 then
+            v.c1 = (v.c1 + (0 + 50)/(2*255))/2
+            v.c2 = (v.c2 + (50 + 100)/(2*255))/2
+            v.c3 = 0
+        end
+        if ahead_id == 2 then
+            v.c1 = (v.c1 + (150 + 200)/(2*255))/2
+            v.c2 = (v.c2 + (0 + 200)/(2*255))/2
+            v.c3 = 0
+        end
+        if ahead_id == 3 then
+            v.c1 = (v.c1 + (50 + 150)/(2*255))/2
+            v.c2 = (v.c2 + (25 + 75)/(2*255))/2
+            v.c3 = 0
+        end
+        if ahead_id == 4 then
+            v.c1 = (v.c1 + (200 + 250)/(2*255))/2
+            v.c2 = (v.c2 + (0 + 150)/(2*255))/2
+            v.c3 = (v.c3 + (100 + 250)/(2*255))/2
         end
 
-        if (v.c1 + v.c2 + v.c3)/3 > 0.98 then
-            reverse_seasons = true
+        if behind_id == 1 then
+            v.c1 = (v.c1 + (0 + 50)/(2*255))/2
+            v.c2 = (v.c2 + (50 + 100)/(2*255))/2
+            v.c3 = 0
         end
-        if (v.c1 + v.c2 + v.c3)/3 < 0.02 then
-            reverse_seasons = false
+        if behind_id == 2 then
+            v.c1 = (v.c1 + (150 + 200)/(2*255))/2
+            v.c2 = (v.c2 + (0 + 200)/(2*255))/2
+            v.c3 = 0
+        end
+        if behind_id == 3 then
+            v.c1 = (v.c1 + (50 + 150)/(2*255))/2
+            v.c2 = (v.c2 + (25 + 75)/(2*255))/2
+            v.c3 = 0
+        end
+        if behind_id == 4 then
+            v.c1 = (v.c1 + (200 + 250)/(2*255))/2
+            v.c2 = (v.c2 + (0 + 150)/(2*255))/2
+            v.c3 = (v.c3 + (100 + 250)/(2*255))/2
         end
     end
+    ]]--
 
     -- Add a Volcano
     if math.random() < add_volcano_rate then
