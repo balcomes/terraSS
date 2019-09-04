@@ -324,7 +324,7 @@ function love.load()
     Grass = {}
     Grass.__index = Grass
     function Grass:Create(xo,yo)
-        --[[
+
         -- Grass Seasons
         ahead_id = math.floor((tick + season_days/2)/season_days) % 4 + 1
         behind_id = math.floor((tick - season_days/2)/season_days) % 4 + 1
@@ -376,15 +376,14 @@ function love.load()
                 vc3 = math.random(0, 150)/255
             end
         end
-        ]]--
 
         local this =
         {
             x = xo,
             y = yo,
-            c1 = math.random(75,100)/255,
-            c2 = math.random(150, 200)/255,
-            c3 = 0,
+            c1 = vc1,--math.random(75,100)/255,
+            c2 = vc2,--math.random(150, 200)/255,
+            c3 = vc3,--0,
         }
         setmetatable(this, Grass)
         board.grid[yo][xo] = "grass"
@@ -446,7 +445,7 @@ function love.load()
     function Tree:Create(xo,yo)
 
         -- Tree Seasons
-        --[[
+
         ahead_id = math.floor((tick + season_days/2)/season_days) % 4 + 1
         behind_id = math.floor((tick - season_days/2)/season_days) % 4 + 1
         ahead_fraction = tick/season_days
@@ -497,15 +496,14 @@ function love.load()
                 vc3 = math.random(100, 250)/255
             end
         end
-        ]]--
 
         local this =
         {
             x = xo,
             y = yo,
-            c1 = math.random(0, 50)/255,
-            c2 = math.random(50,100)/255,
-            c3 = 0,
+            c1 = vc1,--math.random(0, 50)/255,
+            c2 = vc2,--math.random(50,100)/255,
+            c3 = vc3,--0,
         }
         setmetatable(this, Tree)
         board.grid[yo][xo] = "tree"
@@ -743,6 +741,8 @@ function love.update(dt)
 
     -- print(4000/season_days)
     -- print(1-4000/season_days)
+
+    --[[
     ahead_id = math.floor((tick + season_days/2)/season_days) % 4 + 1
     behind_id = math.floor((tick - season_days/2)/season_days) % 4 + 1
     ahead_fraction = tick/season_days
@@ -837,7 +837,7 @@ function love.update(dt)
             v.c3 = (v.c3 + behind_fraction*(100 + 250)/(2*255)/season_days)/(1+behind_fraction*1/season_days)
         end
     end
-
+    ]]--
 
     -- Add a Volcano
     if math.random() < add_volcano_rate then
