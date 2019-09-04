@@ -740,8 +740,6 @@ function love.update(dt)
 
     -- print(4000/10000)
     -- print(1-4000/10000)
-
-    --[[
     ahead_id = math.floor((tick + season_days/2)/season_days) % 4 + 1
     behind_id = math.floor((tick - season_days/2)/season_days) % 4 + 1
     ahead_fraction = tick/season_days
@@ -750,93 +748,93 @@ function love.update(dt)
     -- Grass Seasons
     for k,v in pairs(grass_table) do
         if ahead_id == 1 then
-            v.c1 = (v.c1 + (75+100)/(2*255))/2
-            v.c2 = (v.c2 + (150+200)/(2*255))/2
-            v.c3 = 0
+            v.c1 = (v.c1 + ahead_fraction*(75+100)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c2 = (v.c2 + ahead_fraction*(150+200)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c3 = (v.c1 + ahead_fraction*0)/(1+ahead_fraction*1/10000)
         end
         if ahead_id == 2 then
-            v.c1 = (v.c1 + (50 + 150)/(2*255))/2
-            v.c2 = (v.c2 + (100 + 150)/(2*255))/2
-            v.c3 = 0
+            v.c1 = (v.c1 + ahead_fraction*(50 + 150)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c2 = (v.c2 + ahead_fraction*(100 + 150)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/10000)
         end
         if ahead_id == 3 then
-            v.c1 = 1
-            v.c2 = 1
-            v.c3 = 1
+            v.c1 = (v.c1 + ahead_fraction*1)/(1+ahead_fraction*1/10000)
+            v.c2 = (v.c2 + ahead_fraction*1)/(1+ahead_fraction*1/10000)
+            v.c3 = (v.c3 + ahead_fraction*1)/(1+ahead_fraction*1/10000)
         end
         if ahead_id == 4 then
-            v.c1 = (v.c1 + (125 + 200)/(2*255))/2
-            v.c2 = 1
-            v.c3 = (v.c3 + (0 + 150)/(2*255))/2
+            v.c1 = (v.c1 + ahead_fraction*(125 + 200)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c2 = (v.c2 + ahead_fraction*1)/(1+ahead_fraction*1/10000)
+            v.c3 = (v.c3 + ahead_fraction*(0 + 150)/(2*255)/10000)/(1+ahead_fraction*1/10000)
         end
 
         if behind_id == 1 then
-            v.c1 = (v.c1 + (75 + 100)/(2*255))/2
-            v.c2 = (v.c2 + (150 + 200)/(2*255))/2
-            v.c3 = 0
+            v.c1 = (v.c1 + behind_fraction*(75 + 100)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c2 = (v.c2 + behind_fraction*(150 + 200)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/10000)
         end
         if behind_id == 2 then
-            v.c1 = (v.c1 + (50 + 150)/(2*255))/2
-            v.c2 = (v.c2 + (100 + 150)/(2*255))/2
-            v.c3 = 0
+            v.c1 = (v.c1 + behind_fraction*(50 + 150)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c2 = (v.c2 + behind_fraction*(100 + 150)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/10000)
         end
         if behind_id == 3 then
-            v.c1 = 1
-            v.c2 = 1
-            v.c3 = 1
+            v.c1 = (v.c1 + behind_fraction*1)/(1+behind_fraction*1/10000)
+            v.c2 = (v.c2 + behind_fraction*1)/(1+behind_fraction*1/10000)
+            v.c3 = (v.c3 + behind_fraction*1)/(1+behind_fraction*1/10000)
         end
         if behind_id == 4 then
-            v.c1 = (v.c1 + (125 + 200)/(2*255))/2
-            v.c2 = 1
-            v.c3 = (v.c3 + (0 + 150)/(2*255))/2
+            v.c1 = (v.c1 + behind_fraction*(125 + 200)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c2 = (v.c2 + behind_fraction*1)/(1+behind_fraction*1/10000)
+            v.c3 = (v.c3 + behind_fraction*(0 + 150)/(2*255)/10000)/(1+behind_fraction*1/10000)
         end
     end
 
     -- Tree Seasons
     for k,v in pairs(tree_table) do
         if ahead_id == 1 then
-            v.c1 = (v.c1 + (0 + 50)/(2*255))/2
-            v.c2 = (v.c2 + (50 + 100)/(2*255))/2
-            v.c3 = 0
+            v.c1 = (v.c1 + ahead_fraction*(0 + 50)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c2 = (v.c2 + ahead_fraction*(50 + 100)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/10000)
         end
         if ahead_id == 2 then
-            v.c1 = (v.c1 + (150 + 200)/(2*255))/2
-            v.c2 = (v.c2 + (0 + 200)/(2*255))/2
-            v.c3 = 0
+            v.c1 = (v.c1 + ahead_fraction*(150 + 200)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c2 = (v.c2 + ahead_fraction*(0 + 200)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/10000)
         end
         if ahead_id == 3 then
-            v.c1 = (v.c1 + (50 + 150)/(2*255))/2
-            v.c2 = (v.c2 + (25 + 75)/(2*255))/2
-            v.c3 = 0
+            v.c1 = (v.c1 + ahead_fraction*(50 + 150)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c2 = (v.c2 + ahead_fraction*(25 + 75)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c3 = (v.c3 + ahead_fraction*0)/(1+ahead_fraction*1/10000)
         end
         if ahead_id == 4 then
-            v.c1 = (v.c1 + (200 + 250)/(2*255))/2
-            v.c2 = (v.c2 + (0 + 150)/(2*255))/2
-            v.c3 = (v.c3 + (100 + 250)/(2*255))/2
+            v.c1 = (v.c1 + ahead_fraction*(200 + 250)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c2 = (v.c2 + ahead_fraction*(0 + 150)/(2*255)/10000)/(1+ahead_fraction*1/10000)
+            v.c3 = (v.c3 + ahead_fraction*(100 + 250)/(2*255)/10000)/(1+ahead_fraction*1/10000)
         end
 
         if behind_id == 1 then
-            v.c1 = (v.c1 + (0 + 50)/(2*255))/2
-            v.c2 = (v.c2 + (50 + 100)/(2*255))/2
-            v.c3 = 0
+            v.c1 = (v.c1 + behind_fraction*(0 + 50)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c2 = (v.c2 + behind_fraction*(50 + 100)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/10000)
         end
         if behind_id == 2 then
-            v.c1 = (v.c1 + (150 + 200)/(2*255))/2
-            v.c2 = (v.c2 + (0 + 200)/(2*255))/2
-            v.c3 = 0
+            v.c1 = (v.c1 + behind_fraction*(150 + 200)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c2 = (v.c2 + behind_fraction*(0 + 200)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/10000)
         end
         if behind_id == 3 then
-            v.c1 = (v.c1 + (50 + 150)/(2*255))/2
-            v.c2 = (v.c2 + (25 + 75)/(2*255))/2
-            v.c3 = 0
+            v.c1 = (v.c1 + behind_fraction*(50 + 150)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c2 = (v.c2 + behind_fraction*(25 + 75)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c3 = (v.c3 + behind_fraction*0)/(1+behind_fraction*1/10000)
         end
         if behind_id == 4 then
-            v.c1 = (v.c1 + (200 + 250)/(2*255))/2
-            v.c2 = (v.c2 + (0 + 150)/(2*255))/2
-            v.c3 = (v.c3 + (100 + 250)/(2*255))/2
+            v.c1 = (v.c1 + behind_fraction*(200 + 250)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c2 = (v.c2 + behind_fraction*(0 + 150)/(2*255)/10000)/(1+behind_fraction*1/10000)
+            v.c3 = (v.c3 + behind_fraction*(100 + 250)/(2*255)/10000)/(1+behind_fraction*1/10000)
         end
     end
-    ]]--
+
 
     -- Add a Volcano
     if math.random() < add_volcano_rate then
